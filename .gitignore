@@ -17,3 +17,4 @@ application/logs/*
 /vendor/
 .DS_Store
 wp-config.php
+cms/wp-admin/php_errors.log
