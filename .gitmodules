@@ -1,0 +1,3 @@
+[submodule "cms/wp-content/plugins/waymark"]
+	path = cms/wp-content/plugins/waymark
+	url = git@github.com:morehawes/waymark.git
