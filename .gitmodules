@@ -1,3 +1,6 @@
 [submodule "cms/wp-content/plugins/waymark"]
 	path = cms/wp-content/plugins/waymark
 	url = git@github.com:morehawes/waymark.git
+[submodule "cms/wp-content/themes/map-first"]
+	path = cms/wp-content/themes/map-first
+	url = git@github.com:morehawes/map-first.git
