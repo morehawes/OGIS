@@ -4,23 +4,8 @@ $collection = get_queried_object();
 get_header(); ?>
 
 <article id="collection-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php echo do_shortcode('[' . Waymark_Config::get_item('shortcode') . ' collection_id="' . $collection->term_id . '"]'); ?>
+	<?php echo do_shortcode('[' . Waymark_Config::get_item('shortcode') . ' map_hash="collection" shortcode_header="0" collection_id="' . $collection->term_id . '"]'); ?>
 		
-<?php
-		//Create Collection object
-// 		$Collection = new Waymark_Collection($collection->term_id);
-// 		
-// 		$objects = array();
-// 		foreach($Collection->Maps as $Map) {
-// 			//Ensure we have map_data and that it is valid JSON
-// 			if(isset($Map->data['map_data']) && $FeatureCollection = json_decode($Map->data['map_data'])) {
-// 				$objects = array_merge_recursive($objects, waymark_geojson_to_objects($FeatureCollection));				
-// 			}
-// 		}
-// 		
-// 		echo waymark_list_objects($objects);									
-	?>
-
 	<p class="lead text-center mb-5"><?php echo $collection->description; ?></p>
 </article>
 
@@ -28,6 +13,9 @@ get_header(); ?>
 
 <div class="row mb-4">
 	<?php
+
+/*
+
 	//Content
 	if(have_posts()) {
 		//The Loop
@@ -39,6 +27,9 @@ get_header(); ?>
 	} else {
 		get_template_part('template-parts/content/content', 'none');
 	}
+
+*/	
+	
 	?>
 </div>
 

@@ -16,9 +16,11 @@
 		<?php wp_head(); ?>
 		
 		<style type="text/css">
+/* 
 			.navbar, #navbarHeader, .navbar select {
 				background-color: <?php echo get_theme_mod('map_first_header_background', '#212529'); ?> !important;
 			}
+ */
 			.navbar *, #navbarHeader * {
 				color: <?php echo get_theme_mod('map_first_header_color', '#fff'); ?> !important;
 			}
@@ -44,7 +46,7 @@
 		<?php wp_body_open(); ?>
 		
 		<!-- START Header -->
-		<header>
+		<header id="header">
 			<div class="collapse bg-dark" id="navbarHeader">
 				<div class="container">
 					<div class="row">
@@ -93,9 +95,17 @@
 					<div class="navbar-left">
 						<!-- Brand -->
 						<?php if(is_front_page()) : ?>
-						<span class="navbar-brand"><?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" /><?php endif; ?><?php echo get_bloginfo( 'name', 'display' ); ?></span>
+						<span class="navbar-brand">
+<!-- 							<?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" /><?php endif; ?><?php echo get_bloginfo( 'name', 'display' ); ?> -->
+							<i class="fa fa-area-chart"></i>
+							<?php echo get_bloginfo( 'name', 'display' ); ?>
+						</span>
 						<?php else : ?>
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand"><?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" /><?php endif; ?><?php echo get_bloginfo( 'name', 'display' ); ?></a>
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand">
+<!-- 							<?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" /><?php endif; ?><?php echo get_bloginfo( 'name', 'display' ); ?> -->
+							<i class="fa fa-area-chart"></i>
+							<?php echo get_bloginfo( 'name', 'display' ); ?>
+						</a>
 						<?php endif; ?>
 																	
 						<!-- Breadcrumb -->

@@ -375,3 +375,312 @@ function waymark_head_css() {
 	}
 }
 add_action('wp_head', 'waymark_head_css');
+
+function map_first_sort_overlay_features($overlay_features = []) {		
+	$overlays = array(
+		'lines' => array(),
+		'markers' => array(),
+		'shapes' => array()		
+	);
+
+	//Feature Collection
+	if(sizeof($overlay_features)) {	
+		foreach($overlay_features as $feature) {
+			if(isset($feature['geometry']['type'])) {
+				switch($feature['geometry']['type']) {
+					case 'Point' :
+						//Waymark_Helper::debug($feature);
+				
+						//Circle
+						if(isset($feature['properties']['radius'])) {
+							$overlays['shapes'][$feature['properties']['type']][] = $feature;										
+						//Marker
+						} else {
+							$overlays['markers'][$feature['properties']['type']][] = $feature;					
+						}
+
+						break;
+
+					case 'LineString' :
+					case 'MultiLineString' :
+						$overlays['lines'][$feature['properties']['type']][] = $feature;
+
+						break;
+					case 'Polygon' :
+						$overlays['shapes'][$feature['properties']['type']][] = $feature;
+				
+						break;
+				}
+			}
+		}	
+	}	
+
+	return $overlays;	
+}
+
+function map_first_overlay_content($overlay, $overlay_kind = 'marker') {
+	$out = '';
+
+	if(isset($overlay['properties']['type'])) {
+		//OSM Tags
+		$osm_tags = [];
+		if(isset($overlay['properties']['description'])) {					
+			$osm_tags = map_first_description_to_osm_tags($overlay['properties']['description']);
+			
+			if(sizeof($osm_tags)) {
+				foreach($osm_tags as $tag_key => $tag_value) {
+					switch($tag_key) {
+						case 'wikidata':
+							$Wiki_Data = new Map_First_Wiki_Data($tag_value);
+							if($wiki_data_image_url = $Wiki_Data->get_image_url()) {
+								$overlay['properties']['image_large_url'] = $wiki_data_image_url;			
+							}
+
+							break;
+					}
+				}
+			}
+		}
+
+		//Add Class
+		$add_class = '';
+		if(! empty($overlay['properties']['image_large_url'])) {
+			$add_class .= ' map-first-has-image';
+		}
+
+		//By Kind
+		switch($overlay_kind) {
+			case 'marker' :
+				$out .= '<div class="map-first-overlay map-first-overlay-marker' . $add_class . '" data-marker_latlng="[' . $overlay['geometry']['coordinates'][1] . ',' . $overlay['geometry']['coordinates'][0] . ']">' . "\n";
+			
+				//Type Label
+	// 			$out .= '	<div class="map-first-overlay-type">' . $overlay['type'] . '</div>' . "\n";
+
+				//Image
+				if(isset($overlay['properties']['image_large_url'])) {
+					$out .= '	<div class="map-first-overlay-image" style="background-image:url(' . $overlay['properties']['image_large_url'] . ')"></div>' . "\n";
+				}
+						
+				//Title
+				if(isset($overlay['properties']['title'])) {		
+					$out .= '	<div class="map-first-overlay-title">' . $overlay['properties']['title'] . '</div>' . "\n";
+				}
+			
+				//Description			
+				$out .= '	<div class="map-first-overlay-description">' . "\n";
+				if(isset($overlay['properties']['description'])) {					
+					switch($overlay['properties']['type']) {
+						default :
+							$out .= map_first_overlay_description($overlay, $overlay_kind);
+
+							break;
+					}
+				}
+				$out .= '	</div>' . "\n";
+
+				$out .= '</div>' . "\n";		
+			
+				break;
+
+			case 'line' :
+			
+// 				Waymark_Helper::debug($overlay['geometry']['coordinates'][0]);
+			
+				if(isset($overlay['properties']['post_id'])) {
+					$out .= '<a href="' . get_permalink($overlay['properties']['post_id']) . '" class="map-first-overlay map-first-overlay-line' . $add_class . '" data-line_start_latlng="[' . $overlay['geometry']['coordinates'][0][1] . ',' . $overlay['geometry']['coordinates'][0][0] . ']">' . "\n";
+				} else {
+					$out .= '<div class="map-first-overlay map-first-overlay-line' . $add_class . '" data-line_start_latlng="[' . $overlay['geometry']['coordinates'][0][1] . ',' . $overlay['geometry']['coordinates'][0][0] . ']">' . "\n";				
+				}
+			
+				//Image
+				if(isset($overlay['properties']['image_large_url'])) {
+					$out .= '	<div class="map-first-overlay-image" style="background-image:url(' . $overlay['properties']['image_large_url'] . ')"></div>' . "\n";
+				}
+						
+				//Title
+				if(isset($overlay['properties']['title'])) {		
+					$out .= '	<div class="map-first-overlay-title">' . $overlay['properties']['title'] . '</div>' . "\n";
+				}
+			
+				//Description			
+				$out .= '	<div class="map-first-overlay-description">' . "\n";
+				if(isset($overlay['properties']['description'])) {					
+					switch($overlay['properties']['type']) {
+						default :
+							$out .= map_first_overlay_description($overlay, $overlay_kind);
+
+							break;
+					}
+				}
+				$out .= '	</div>' . "\n";
+
+				if(isset($overlay['properties']['post_id'])) {
+					$out .= '	</a>' . "\n";
+				} else {
+					$out .= '	</div>' . "\n";				
+				}
+			
+				break;				
+		}		
+	}
+	
+	return $out;
+}
+
+function map_first_sidebar($overlays, $display_kinds = ['markers', 'lines'], $display_types = false) {
+	$out = '<!-- START Overlay Sidebar -->';
+	$out .= '<div class="map-first-sidebar waymark-accordion-container">';
+	
+	foreach($display_kinds as $overlay_kind) {
+
+		if(! isset($overlays[$overlay_kind])) {
+			continue;
+		}
+
+		$overlay_group = $overlays[$overlay_kind];
+	
+		switch($overlay_kind) {
+			case 'markers' :
+		
+				//Peaks first!
+				if(array_key_exists('peak', $overlay_group)) {
+ 					$peaks = $overlay_group['peak'];
+// 					unset($overlay_group['photo']);					
+ 					$overlay_group = array_merge(['peak' => $peaks], $overlay_group);
+				}
+				
+				$out .= '<div class="map-first-markers">' . "\n";
+				foreach($overlay_group as $marker_type => $markers) {
+					if(isset($display_types['markers']) && is_array($display_types['markers']) && ! in_array($marker_type, $display_types['markers'])) {
+						continue;
+					}
+				
+					$out .= '	<div data-type_key="' . $marker_type . '" class="map-first-overlay-type map-first-overlay-type-' . $marker_type . ' waymark-accordion-group">' . "\n";				
+					$out .= '		<legend>' . $marker_type . ' (' . sizeof($markers) . ')</legend>' . "\n";
+					$out .= '		<div class="waymark-accordion-group-content">' . "\n";
+					foreach($markers as $marker) {					
+						$out .= map_first_overlay_content($marker, 'marker');
+					}
+					$out .= '		</div>' . "\n";
+					$out .= '	</div>' . "\n";
+				}
+				$out .= '</div>' . "\n";
+												
+				break;	
+			case 'lines' :
+				$out .= '<div class="map-first-lines">' . "\n";
+				foreach($overlay_group as $line_type => $lines) {
+					if(isset($display_types['lines']) && is_array($display_types['lines']) && ! in_array($line_type, $display_types['lines'])) {
+						continue;
+					}
+
+					$out .= '	<div data-type_key="' . $line_type . '" class="map-first-overlay-type map-first-overlay-type-' . $line_type . ' waymark-accordion-group">' . "\n";				
+					$out .= '		<legend>' . $line_type . ' (' . sizeof($lines) . ')</legend>' . "\n";
+					$out .= '		<div class="waymark-accordion-group-content">' . "\n";
+					foreach($lines as $line) {
+						$out .= map_first_overlay_content($line, 'line');
+					}
+					$out .= '		</div>' . "\n";
+					$out .= '	</div>' . "\n";
+				}
+				$out .= '</div>' . "\n";
+												
+				break;												
+		}
+	}
+
+	$out .= '</div>';
+	$out .= '<!-- END Overlay Sidebar -->';
+	
+	return $out;
+}
+
+add_filter('do_shortcode_tag', function($output, $tag, $attr) {
+	global $post;
+	
+	if($tag != 'Waymark') {
+		return $output;
+	}
+
+	$sidebar = '';
+
+	$WP_Object = get_queried_object();
+
+	//Single Map
+	if(is_a($WP_Object, 'WP_Post') && is_single()) {
+		$map_meta = Waymark_Helper::get_meta($post->ID);
+		
+		if(isset($map_meta['waymark_map_data']) || isset($map_meta['waymark_query_data'])) {
+			$map_data = Waymark_GeoJSON::string_to_feature_collection($map_meta['waymark_map_data']);
+			$query_data = Waymark_GeoJSON::string_to_feature_collection($map_meta['waymark_query_data']);
+
+			//Map Data
+			$map_data_features = [];
+			if(isset($map_data['features']) && is_array($map_data['features'])) {
+				$map_data_features = $map_data['features'];
+			}
+	
+			//Query Data
+			$query_data_features = [];
+			if(isset($query_data['features']) && is_array($query_data['features'])) {
+				$query_data_features = $query_data['features'];
+			}	
+	
+			$overlay_features = array_merge($map_data_features, $query_data_features);
+			
+			$overlay_features = map_first_sort_overlay_features($overlay_features);
+
+			$sidebar = map_first_sidebar($overlay_features, ['markers', 'lines']);	
+		}		
+
+	//Collection
+	} elseif(is_a($WP_Object, 'WP_Term') && isset($attr['collection_id'])) {
+		$overlay_features = array();
+
+		//Create Collection object
+		$Collection = new Waymark_Collection($WP_Object->term_id);	
+		foreach($Collection->Maps as $Map) {
+			//Map Data
+			$map_data_features = [];	
+			if(isset($Map->data['map_data'])) {
+				$map_data = Waymark_GeoJSON::string_to_feature_collection($Map->data['map_data']);
+				
+				//Add Map ID to properties
+				$map_data = Waymark_GeoJSON::update_feature_property($map_data, 'post_id', $Map->post_id);
+				
+				if(isset($map_data['features']) && is_array($map_data['features'])) {
+					$map_data_features = $map_data['features'];
+				}				
+			}
+
+			//Query Data
+			$query_data_features = [];
+			if(isset($Map->data['query_data'])) {
+				$query_data = Waymark_GeoJSON::string_to_feature_collection($Map->data['query_data']);
+		
+				if(isset($query_data['features']) && is_array($query_data['features'])) {
+					$query_data_features = $query_data['features'];
+				}	
+			}			
+
+			$overlay_features = array_merge_recursive($overlay_features, map_first_sort_overlay_features(array_merge($map_data_features, $query_data_features)));
+		}
+
+		$sidebar = map_first_sidebar($overlay_features, ['lines', 'markers'], ['markers' => ['photo', 'peak']]);	
+	}
+	
+	if($sidebar) {
+		$out = '<!-- START Map First Sidebar Wrapper -->' . "\n";
+		$out .= '<div class="map-first-sidebar-wrapper">' . "\n";
+		$out .= $output;
+		$out .= $sidebar;	
+		$out .= '</div>' . "\n";
+		$out .= '<!-- END Map First Sidebar Wrapper -->' . "\n";	
+		
+		return $out;
+	} else {
+		return $output;
+	}
+	
+	return $out;
+}, 10, 3);
