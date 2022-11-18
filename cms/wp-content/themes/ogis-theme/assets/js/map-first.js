@@ -296,7 +296,7 @@ function map_first_setup_sidebar() {
 		
 				//Title
 				var type_count = legend.html().replace(type_key, '');
-				legend.html('<i class="fa fa-blind"></i>&nbsp;' + type.line_title + type_count);			
+				legend.html(type.line_title + type_count);			
 				legend.css({
 					'background' : type.line_colour
 				});
@@ -319,7 +319,7 @@ function map_first_setup_sidebar() {
 					//
 				
 					//Closer than a meter
-					if(layer._latlngs[0].distanceTo(line_start_latlng) < 1) {
+					if(typeof layer._latlng !== 'undefined' && layer._latlngs[0].distanceTo(line_start_latlng) < 1) {
 // 						var jquery_line = jQuery(layer.getElement());						
 
 						line.data({

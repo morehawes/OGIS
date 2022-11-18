@@ -281,101 +281,6 @@ function map_first_single_pagination() {
   echo '</ul>' . "\n";	    
 }
 
-// ----
-// Unused...
-
-function waymark_geojson_to_objects($FeatureCollection) {
-	$objects = array(
-		'markers' => array(),
-		'lines' => array(),
-		'shapes' => array()		
-	);
-	
-	foreach($FeatureCollection->features as $feature) {
-		if(isset($feature->geometry->type)) {
-			switch($feature->geometry->type) {
-				case 'Point' :
-					//Waymark_Helper::debug($feature);
-					
-					//Circle
-					if(isset($feature->properties->radius)) {
-						$objects['shapes'][$feature->properties->type][] = $feature->properties;										
-					//Marker
-					} else {
-						$objects['markers'][$feature->properties->type][] = $feature->properties;					
-					}
-
-					break;
-
-				case 'LineString' :
-				case 'MultiLineString' :
-					$objects['lines'][$feature->properties->type][] = $feature->properties;
-
-					break;
-				case 'Polygon' :
-					$objects['shapes'][$feature->properties->type][] = $feature->properties;
-					
-					break;
-			}
-		}
-	}	
-
-	return $objects;
-}
-
-function waymark_list_objects($objects) {
-	$out = '';
-	
-	//Waymark_Helper::debug($objects);
-	
-	foreach($objects as $object_type => $object) {
-		switch($object_type) {
-			case 'markers' :
-				$out .= '<p>Markers:</p>' . "\n";
-				$out .= '<ul>' . "\n";
-				foreach($object as $marker_type => $markers) {
-					$out .= '<li>' . $marker_type . ' (' . sizeof($markers) . ')</li>' . "\n";				
-				}
-				$out .= '</ul>' . "\n";
-								
-				break;
-			case 'lines' :
-				$out .= '<p>Lines:</p>' . "\n";
-				$out .= '<ul>' . "\n";
-				foreach($object as $line_type => $lines) {
-					$out .= '<li>' . $line_type . ' (' . sizeof($lines) . ')</li>' . "\n";				
-				}
-				$out .= '</ul>' . "\n";
-								
-				break;
-			case 'shapes' :
-				$out .= '<p>Shapes:</p>' . "\n";
-				$out .= '<ul>' . "\n";
-				foreach($object as $shape_type => $shapes) {
-					$out .= '<li>' . $shape_type . ' (' . sizeof($shapes) . ')</li>' . "\n";				
-				}
-				$out .= '</ul>' . "\n";
-								
-				break;								
-		}
-	}
-	
-	return $out;
-}
-
-function waymark_head_css() {
-	if(! class_exists('Waymark_CSS')) {
-		return;
-	}
-
-	global $current_user;
-
-	if(! in_array('administrator', $current_user->roles)) {
-		Waymark_CSS::add_chunk('.waymark-map .waymark-marker-information { display: none !important; }');
-	}
-}
-add_action('wp_head', 'waymark_head_css');
-
 function map_first_sort_overlay_features($overlay_features = []) {		
 	$overlays = array(
 		'lines' => array(),
@@ -418,30 +323,22 @@ function map_first_sort_overlay_features($overlay_features = []) {
 	return $overlays;	
 }
 
+function map_first_overlay_description($overlay, $overlay_kind = 'marker') {
+	//Check
+	if(! isset($overlay['properties']['type']) || ! isset($overlay['properties']['description'])) {
+		return;
+	}
+
+	//Original Description
+	$description = $overlay['properties']['description'];
+
+	return $description;
+}
+
 function map_first_overlay_content($overlay, $overlay_kind = 'marker') {
 	$out = '';
 
 	if(isset($overlay['properties']['type'])) {
-		//OSM Tags
-		$osm_tags = [];
-		if(isset($overlay['properties']['description'])) {					
-			$osm_tags = map_first_description_to_osm_tags($overlay['properties']['description']);
-			
-			if(sizeof($osm_tags)) {
-				foreach($osm_tags as $tag_key => $tag_value) {
-					switch($tag_key) {
-						case 'wikidata':
-							$Wiki_Data = new Map_First_Wiki_Data($tag_value);
-							if($wiki_data_image_url = $Wiki_Data->get_image_url()) {
-								$overlay['properties']['image_large_url'] = $wiki_data_image_url;			
-							}
-
-							break;
-					}
-				}
-			}
-		}
-
 		//Add Class
 		$add_class = '';
 		if(! empty($overlay['properties']['image_large_url'])) {
