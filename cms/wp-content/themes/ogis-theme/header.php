@@ -96,15 +96,15 @@
 						<!-- Brand -->
 						<?php if(is_front_page()) : ?>
 						<span class="navbar-brand">
-<!-- 							<?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" /><?php endif; ?><?php echo get_bloginfo( 'name', 'display' ); ?> -->
-							<i class="fa fa-area-chart"></i>
-							<?php echo get_bloginfo( 'name', 'display' ); ?>
+							<?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?>
+								<img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" />
+							<?php endif; ?>
 						</span>
 						<?php else : ?>
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand">
-<!-- 							<?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" /><?php endif; ?><?php echo get_bloginfo( 'name', 'display' ); ?> -->
-							<i class="fa fa-area-chart"></i>
-							<?php echo get_bloginfo( 'name', 'display' ); ?>
+							<?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?>
+								<img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" />
+							<?php endif; ?>
 						</a>
 						<?php endif; ?>
 																	
