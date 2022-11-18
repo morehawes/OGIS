@@ -4,17 +4,17 @@ function map_first_setup_sidebar() {
 	if(typeof waymark_container !== 'object') {
 		return;
 	}
-	waymark_container.addClass('map-first-sidebar-active');
+	waymark_container.addClass('ogis-theme-sidebar-active');
 	
 	var waymark_shortcode_container = waymark_container.parent('.waymark-shortcode');
-	waymark_shortcode_container.addClass('map-first-sidebar-active');
+	waymark_shortcode_container.addClass('ogis-theme-sidebar-active');
 
 	var Waymark_Instance = waymark_container.data('Waymark');
 	if(typeof Waymark_Instance !== 'object') {
 		return;
 	}
 
-	var sidebar = jQuery('.map-first-sidebar').first();
+	var sidebar = jQuery('.ogis-theme-sidebar').first();
 	var container = jQuery('.waymark-shortcode.waymark-container').first();
 	
 	if(! sidebar.length || ! container.length) {
@@ -28,17 +28,17 @@ function map_first_setup_sidebar() {
 		 ===========================	
 	*/
 	
-// 	var sidebar_wrap = sidebar.parents('.map-first-sidebar-wrapper');
+// 	var sidebar_wrap = sidebar.parents('.ogis-theme-sidebar-wrapper');
 	sidebar.css('height', waymark_shortcode_container.height() + 'px');
 	
 
-// 	jQuery('.map-first-overlay').each(function() {
+// 	jQuery('.ogis-theme-overlay').each(function() {
 // 		var overlay_width = jQuery(this).outerWidth();
 // 		
 // 		//Make Overlay Square
 // 		jQuery(this).css('height', overlay_width);
 // 		
-// 		jQuery('.map-first-overlay-image', jQuery(this)).each(function() {
+// 		jQuery('.ogis-theme-overlay-image', jQuery(this)).each(function() {
 // 			jQuery(this).css({
 // 				'width': overlay_width,
 // 				'height': overlay_width,
@@ -54,7 +54,7 @@ function map_first_setup_sidebar() {
 		 ===========================	
 	*/
 	
-	jQuery('.map-first-markers .map-first-overlay-type', sidebar).each(function() {
+	jQuery('.ogis-theme-markers .ogis-theme-overlay-type', sidebar).each(function() {
 		var type_container = jQuery(this);
 		var type_key = type_container.data('type_key');
 
@@ -117,7 +117,7 @@ function map_first_setup_sidebar() {
 		}
 
 		//Each Marker
-		var markers = jQuery('.map-first-overlay-marker', type_container);
+		var markers = jQuery('.ogis-theme-overlay-marker', type_container);
 		markers.each(function() {
 			var marker = jQuery(this);
 
@@ -144,16 +144,16 @@ function map_first_setup_sidebar() {
 			marker.on('click', function() {
 				var marker = jQuery(this);
 
-				var markers = jQuery('.map-first-overlay-marker', type_container);
+				var markers = jQuery('.ogis-theme-overlay-marker', type_container);
 				markers.each(function() {
-					jQuery(this).removeClass('map-first-active');				
+					jQuery(this).removeClass('ogis-theme-active');				
 				});
 
 				if(typeof marker.data('leaflet_layer') === 'object') {
 					var layer = marker.data('leaflet_layer');		
 					Waymark_Instance.map.setView(layer.getLatLng(), 15);
 					
-					marker.addClass('map-first-active');					
+					marker.addClass('ogis-theme-active');					
 				}										
 			});
 
@@ -166,8 +166,8 @@ function map_first_setup_sidebar() {
 						var layer = marker.data('leaflet_layer');					
 						var jquery_marker = jQuery(layer.getElement());
 				
-						if(! jquery_marker.hasClass('map-first-active')) {
-							jquery_marker.addClass('map-first-active');
+						if(! jquery_marker.hasClass('ogis-theme-active')) {
+							jquery_marker.addClass('ogis-theme-active');
 		
 							jquery_marker.css({
 								'width' : marker.data('width_px') * 1.25 + 'px',
@@ -185,8 +185,8 @@ function map_first_setup_sidebar() {
 						var layer = marker.data('leaflet_layer');					
 						var jquery_marker = jQuery(layer.getElement());
 				
-						if(jquery_marker.hasClass('map-first-active')) {
-							jquery_marker.removeClass('map-first-active');
+						if(jquery_marker.hasClass('ogis-theme-active')) {
+							jquery_marker.removeClass('ogis-theme-active');
 		
 							jquery_marker.css({
 								'width' : marker.data('width_px') + 'px',
@@ -205,9 +205,9 @@ function map_first_setup_sidebar() {
 			//On Click
 			layer.on('click', function(e) {		
 				//Iterate Sidebar
-				jQuery('.map-first-sidebar .map-first-overlay-marker').each(function() {
+				jQuery('.ogis-theme-sidebar .ogis-theme-overlay-marker').each(function() {
 					var marker = jQuery(this);							
-					var type_key = marker.parents('.map-first-overlay-type').data('type_key');							
+					var type_key = marker.parents('.ogis-theme-overlay-type').data('type_key');							
 
 					//Match
 					if(typeof marker.data('leaflet_layer') === 'object' && marker.data('leaflet_layer') === e.target) {
@@ -217,11 +217,11 @@ function map_first_setup_sidebar() {
 						}
 					
 						//Hide others
-						jQuery('.map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content').each(function() {
+						jQuery('.ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content').each(function() {
 							jQuery(this).hide();
 						});
 						
-						marker.addClass('map-first-active');
+						marker.addClass('ogis-theme-active');
 						
 						//Show this
 						marker.parents('.waymark-accordion-group-content').show();
@@ -229,7 +229,7 @@ function map_first_setup_sidebar() {
 						//Scroll To Marker
 						marker.get(0).scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
 					} else {
-						marker.removeClass('map-first-active');					
+						marker.removeClass('ogis-theme-active');					
 					}
 				});
 			});
@@ -243,7 +243,7 @@ function map_first_setup_sidebar() {
 	*/
 
 	//Each Line Type
-	jQuery('.map-first-lines .map-first-overlay-type', sidebar).each(function() {
+	jQuery('.ogis-theme-lines .ogis-theme-overlay-type', sidebar).each(function() {
 		var type_container = jQuery(this);
 		var type_key = type_container.data('type_key');
 
@@ -304,7 +304,7 @@ function map_first_setup_sidebar() {
 		}
 
 		//Each Line
-		var lines = jQuery('.map-first-overlay-line', type_container);
+		var lines = jQuery('.ogis-theme-overlay-line', type_container);
 		lines.each(function() {
 			var line = jQuery(this);
 
@@ -335,16 +335,16 @@ function map_first_setup_sidebar() {
 			
 				var line = jQuery(this);
 
-				var lines = jQuery('.map-first-overlay-line', type_container);
+				var lines = jQuery('.ogis-theme-overlay-line', type_container);
 				lines.each(function() {
-					jQuery(this).removeClass('map-first-active');				
+					jQuery(this).removeClass('ogis-theme-active');				
 				});
 
 				if(typeof line.data('leaflet_layer') === 'object') {
 					var layer = line.data('leaflet_layer');		
 					Waymark_Instance.map.fitBounds(layer.getBounds());
 					
-					line.addClass('map-first-active');					
+					line.addClass('ogis-theme-active');					
 				}	
 				
 // 				return false;									
@@ -380,8 +380,8 @@ function map_first_setup_sidebar() {
 // 						var layer = marker.data('leaflet_layer');					
 // 						var jquery_marker = jQuery(layer.getElement());
 // 				
-// 						if(jquery_marker.hasClass('map-first-active')) {
-// 							jquery_marker.removeClass('map-first-active');
+// 						if(jquery_marker.hasClass('ogis-theme-active')) {
+// 							jquery_marker.removeClass('ogis-theme-active');
 // 		
 // 							jquery_marker.css({
 // 								'width' : marker.data('width_px') + 'px',
@@ -400,22 +400,22 @@ function map_first_setup_sidebar() {
 			//On Click
 			layer.on('click', function(e) {
 				//Iterate Sidebar
-				jQuery('.map-first-sidebar .map-first-overlay-line').each(function() {
+				jQuery('.ogis-theme-sidebar .ogis-theme-overlay-line').each(function() {
 					var line = jQuery(this);
 
 					//Match
 					if(typeof line.data('leaflet_layer') === 'object' && line.data('leaflet_layer') === e.target) {
 						//Hide others
-						jQuery('.map-first-sidebar .map-first-overlay-type').each(function() {
+						jQuery('.ogis-theme-sidebar .ogis-theme-overlay-type').each(function() {
 							jQuery(this).removeClass('waymark-active');
 							
 							jQuery('.waymark-accordion-group-content', jQuery(this)).hide();
 						});
 						
-						line.addClass('map-first-active');
+						line.addClass('ogis-theme-active');
 						
 						//Show this
-						line.parents('.map-first-overlay-type').each(function() {
+						line.parents('.ogis-theme-overlay-type').each(function() {
 							jQuery(this).addClass('waymark-active');
 							
 							jQuery('.waymark-accordion-group-content', jQuery(this)).show();
@@ -424,7 +424,7 @@ function map_first_setup_sidebar() {
 						//Scroll To Marker
 						line.get(0).scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
 					} else {
-						line.removeClass('map-first-active');					
+						line.removeClass('ogis-theme-active');					
 					}
 				});
 			});

@@ -51,21 +51,21 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-8 col-md-7 py-4">
-							<?php if(function_exists('dynamic_sidebar')) dynamic_sidebar('map-first-header-content'); ?>
+							<?php if(function_exists('dynamic_sidebar')) dynamic_sidebar('ogis-theme-header-content'); ?>
 						</div>
 						<div class="col-sm-4 offset-md-1 py-4">
 							<?php 
 								//Thanks! https://wordpress.stackexchange.com/a/29432/11684
 								$theme_locations = get_nav_menu_locations();
-								if(array_key_exists('map-first-header-nav', $theme_locations)) {
-									$menu_obj = get_term($theme_locations['map-first-header-nav'], 'nav_menu');
+								if(array_key_exists('ogis-theme-header-nav', $theme_locations)) {
+									$menu_obj = get_term($theme_locations['ogis-theme-header-nav'], 'nav_menu');
 									$menu_name = $menu_obj->name;								
 								} else {
 									$menu_name = '';								
 								}
 								
 								$menu_list = wp_nav_menu(array(
-									'theme_location' => 'map-first-header-nav',
+									'theme_location' => 'ogis-theme-header-nav',
 									'container' => false,
 									'menu_class' => 'list-unstyled',
 									'echo' => false,

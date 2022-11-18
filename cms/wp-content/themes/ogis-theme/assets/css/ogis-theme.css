@@ -93,10 +93,10 @@ hr.wp-block-separator {
  * ======== COLLECTION ARCHIVE ========
  * ====================================
  */
-.map-first-excerpt .leaflet-control {
+.ogis-theme-excerpt .leaflet-control {
   display: none;
 }
-.map-first-excerpt .leaflet-control-fullscreen {
+.ogis-theme-excerpt .leaflet-control-fullscreen {
   display: block;
 }
 /**
@@ -157,7 +157,7 @@ body.tax-waymark_collection .waymark-map .waymark-marker.waymark-marker-peak,
 body.tax-waymark_collection .waymark-map .waymark-marker.waymark-marker-photo {
   visibility: visible;
 }
-body.tax-waymark_collection .map-first-sidebar .map-first-overlay-title {
+body.tax-waymark_collection .ogis-theme-sidebar .ogis-theme-overlay-title {
   font-size: 18px !important;
 }
 /**
@@ -178,26 +178,26 @@ body.single-waymark_map .waymark-map .waymark-marker.waymark-marker-toilet {
  * ============= SIDEBAR ==============
  * ====================================
  */
-.map-first-sidebar-wrapper {
+.ogis-theme-sidebar-wrapper {
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
   margin-bottom: 0;
 }
-.map-first-sidebar-wrapper .waymark-shortcode {
+.ogis-theme-sidebar-wrapper .waymark-shortcode {
   width: 66%;
   float: left;
   margin-bottom: 0;
 }
-.map-first-sidebar-wrapper .waymark-shortcode.map-first-sidebar-active .waymark-map .leaflet-tooltip-pane,
-.map-first-sidebar-wrapper .waymark-shortcode.map-first-sidebar-active .waymark-map .leaflet-popup-pane {
+.ogis-theme-sidebar-wrapper .waymark-shortcode.ogis-theme-sidebar-active .waymark-map .leaflet-tooltip-pane,
+.ogis-theme-sidebar-wrapper .waymark-shortcode.ogis-theme-sidebar-active .waymark-map .leaflet-popup-pane {
   display: none;
 }
-.map-first-sidebar-wrapper .waymark-shortcode.map-first-sidebar-active .waymark-elevation {
+.ogis-theme-sidebar-wrapper .waymark-shortcode.ogis-theme-sidebar-active .waymark-elevation {
   padding-right: 33% !important;
 }
-.map-first-sidebar-wrapper .map-first-sidebar {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar {
   width: 34%;
   height: 100%;
   margin-top: 0;
@@ -206,18 +206,18 @@ body.single-waymark_map .waymark-map .waymark-marker.waymark-marker-toilet {
   overflow-y: auto;
   border: 1px solid #999;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-lines .map-first-overlay-type legend {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-lines .ogis-theme-overlay-type legend {
   color: white;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-markers .map-first-overlay-type.map-first-overlay-type-drinkingwater,
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-markers .map-first-overlay-type.map-first-overlay-type-toilet {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-markers .ogis-theme-overlay-type.ogis-theme-overlay-type-drinkingwater,
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-markers .ogis-theme-overlay-type.ogis-theme-overlay-type-toilet {
   display: none !important;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type {
   padding: 0 !important;
   margin: 0 !important;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type legend {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type legend {
   margin: 0;
   padding: 15px 10px;
   font-size: 14px;
@@ -225,49 +225,49 @@ body.single-waymark_map .waymark-map .waymark-marker.waymark-marker-toilet {
   border: none;
   border-top: 1px solid #9e9e9e;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type legend .waymark-marker-icon.waymark-marker-icon {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type legend .waymark-marker-icon.waymark-marker-icon {
   font-size: 18px;
   margin-right: 5px;
   display: inline;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content {
   padding: 0;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay {
   display: block;
   position: relative;
   border-bottom: 1px solid #f9f9f9;
   padding: 5px;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay:nth-child(odd) {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay:nth-child(odd) {
   background-color: #f7f7f7;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay.map-first-has-image {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay.ogis-theme-has-image {
   min-height: 120px;
   padding-right: 130px;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay.map-first-active {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay.ogis-theme-active {
   background: rgba(40, 87, 46, 0.3);
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay .map-first-overlay-title {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay .ogis-theme-overlay-title {
   font-weight: bold;
   font-size: 13px;
   margin-bottom: 5px;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay .map-first-overlay-description {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay .ogis-theme-overlay-description {
   font-size: 13px;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay .map-first-overlay-description table {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay .ogis-theme-overlay-description table {
   font-size: 11px;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay .map-first-overlay-description table th {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay .ogis-theme-overlay-description table th {
   min-width: 60px;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay .map-first-overlay-description table th,
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay .map-first-overlay-description table td {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay .ogis-theme-overlay-description table th,
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay .ogis-theme-overlay-description table td {
   vertical-align: top;
 }
-.map-first-sidebar-wrapper .map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content .map-first-overlay .map-first-overlay-image {
+.ogis-theme-sidebar-wrapper .ogis-theme-sidebar .ogis-theme-overlay-type .waymark-accordion-group-content .ogis-theme-overlay .ogis-theme-overlay-image {
   position: absolute;
   top: 0;
   right: 2px;

@@ -64,7 +64,7 @@ add_action('customize_register', 'map_first_customize_register' );
 function map_first_widget() {
 	register_sidebar(array(
 		'name' => 'Map First Header Content',
-		'id' => 'map-first-header-content',
+		'id' => 'ogis-theme-header-content',
 		'before_widget' => '<div>',
 		'after_widget' => '</div>',
 		'before_title' => '<h4 class="text-white">',
@@ -74,7 +74,7 @@ function map_first_widget() {
 add_action('widgets_init', 'map_first_widget');
 
 function map_first_menu() {
-  register_nav_menu('map-first-header-nav', 'Map First Header Nav');
+  register_nav_menu('ogis-theme-header-nav', 'Map First Header Nav');
 }
 add_action('init', 'map_first_menu');
 
@@ -212,11 +212,11 @@ function map_first_breadcrumb() {
 function map_first_enqueue_assets() {
 	//CSS
 	wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css', false, '4.3.1');
-	wp_enqueue_style('map-first', get_template_directory_uri() . '/assets/css/map-first.css');
+	wp_enqueue_style('ogis-theme', get_template_directory_uri() . '/assets/css/ogis-theme.css');
 	
 	//JS
 	wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('jquery'), '4.3.1', true);
-	wp_enqueue_script('map-first', get_template_directory_uri() . '/assets/js/map-first.js', array('bootstrap'), false, true);	
+	wp_enqueue_script('ogis-theme', get_template_directory_uri() . '/assets/js/ogis-theme.js', array('bootstrap'), false, true);	
 }
 add_action('wp_enqueue_scripts', 'map_first_enqueue_assets');
 
@@ -342,29 +342,29 @@ function map_first_overlay_content($overlay, $overlay_kind = 'marker') {
 		//Add Class
 		$add_class = '';
 		if(! empty($overlay['properties']['image_large_url'])) {
-			$add_class .= ' map-first-has-image';
+			$add_class .= ' ogis-theme-has-image';
 		}
 
 		//By Kind
 		switch($overlay_kind) {
 			case 'marker' :
-				$out .= '<div class="map-first-overlay map-first-overlay-marker' . $add_class . '" data-marker_latlng="[' . $overlay['geometry']['coordinates'][1] . ',' . $overlay['geometry']['coordinates'][0] . ']">' . "\n";
+				$out .= '<div class="ogis-theme-overlay ogis-theme-overlay-marker' . $add_class . '" data-marker_latlng="[' . $overlay['geometry']['coordinates'][1] . ',' . $overlay['geometry']['coordinates'][0] . ']">' . "\n";
 			
 				//Type Label
-	// 			$out .= '	<div class="map-first-overlay-type">' . $overlay['type'] . '</div>' . "\n";
+	// 			$out .= '	<div class="ogis-theme-overlay-type">' . $overlay['type'] . '</div>' . "\n";
 
 				//Image
 				if(isset($overlay['properties']['image_large_url'])) {
-					$out .= '	<div class="map-first-overlay-image" style="background-image:url(' . $overlay['properties']['image_large_url'] . ')"></div>' . "\n";
+					$out .= '	<div class="ogis-theme-overlay-image" style="background-image:url(' . $overlay['properties']['image_large_url'] . ')"></div>' . "\n";
 				}
 						
 				//Title
 				if(isset($overlay['properties']['title'])) {		
-					$out .= '	<div class="map-first-overlay-title">' . $overlay['properties']['title'] . '</div>' . "\n";
+					$out .= '	<div class="ogis-theme-overlay-title">' . $overlay['properties']['title'] . '</div>' . "\n";
 				}
 			
 				//Description			
-				$out .= '	<div class="map-first-overlay-description">' . "\n";
+				$out .= '	<div class="ogis-theme-overlay-description">' . "\n";
 				if(isset($overlay['properties']['description'])) {					
 					switch($overlay['properties']['type']) {
 						default :
@@ -384,23 +384,23 @@ function map_first_overlay_content($overlay, $overlay_kind = 'marker') {
 // 				Waymark_Helper::debug($overlay['geometry']['coordinates'][0]);
 			
 				if(isset($overlay['properties']['post_id'])) {
-					$out .= '<a href="' . get_permalink($overlay['properties']['post_id']) . '" class="map-first-overlay map-first-overlay-line' . $add_class . '" data-line_start_latlng="[' . $overlay['geometry']['coordinates'][0][1] . ',' . $overlay['geometry']['coordinates'][0][0] . ']">' . "\n";
+					$out .= '<a href="' . get_permalink($overlay['properties']['post_id']) . '" class="ogis-theme-overlay ogis-theme-overlay-line' . $add_class . '" data-line_start_latlng="[' . $overlay['geometry']['coordinates'][0][1] . ',' . $overlay['geometry']['coordinates'][0][0] . ']">' . "\n";
 				} else {
-					$out .= '<div class="map-first-overlay map-first-overlay-line' . $add_class . '" data-line_start_latlng="[' . $overlay['geometry']['coordinates'][0][1] . ',' . $overlay['geometry']['coordinates'][0][0] . ']">' . "\n";				
+					$out .= '<div class="ogis-theme-overlay ogis-theme-overlay-line' . $add_class . '" data-line_start_latlng="[' . $overlay['geometry']['coordinates'][0][1] . ',' . $overlay['geometry']['coordinates'][0][0] . ']">' . "\n";				
 				}
 			
 				//Image
 				if(isset($overlay['properties']['image_large_url'])) {
-					$out .= '	<div class="map-first-overlay-image" style="background-image:url(' . $overlay['properties']['image_large_url'] . ')"></div>' . "\n";
+					$out .= '	<div class="ogis-theme-overlay-image" style="background-image:url(' . $overlay['properties']['image_large_url'] . ')"></div>' . "\n";
 				}
 						
 				//Title
 				if(isset($overlay['properties']['title'])) {		
-					$out .= '	<div class="map-first-overlay-title">' . $overlay['properties']['title'] . '</div>' . "\n";
+					$out .= '	<div class="ogis-theme-overlay-title">' . $overlay['properties']['title'] . '</div>' . "\n";
 				}
 			
 				//Description			
-				$out .= '	<div class="map-first-overlay-description">' . "\n";
+				$out .= '	<div class="ogis-theme-overlay-description">' . "\n";
 				if(isset($overlay['properties']['description'])) {					
 					switch($overlay['properties']['type']) {
 						default :
@@ -426,7 +426,7 @@ function map_first_overlay_content($overlay, $overlay_kind = 'marker') {
 
 function map_first_sidebar($overlays, $display_kinds = ['markers', 'lines'], $display_types = false) {
 	$out = '<!-- START Overlay Sidebar -->';
-	$out .= '<div class="map-first-sidebar waymark-accordion-container">';
+	$out .= '<div class="ogis-theme-sidebar waymark-accordion-container">';
 	
 	foreach($display_kinds as $overlay_kind) {
 
@@ -446,13 +446,13 @@ function map_first_sidebar($overlays, $display_kinds = ['markers', 'lines'], $di
  					$overlay_group = array_merge(['peak' => $peaks], $overlay_group);
 				}
 				
-				$out .= '<div class="map-first-markers">' . "\n";
+				$out .= '<div class="ogis-theme-markers">' . "\n";
 				foreach($overlay_group as $marker_type => $markers) {
 					if(isset($display_types['markers']) && is_array($display_types['markers']) && ! in_array($marker_type, $display_types['markers'])) {
 						continue;
 					}
 				
-					$out .= '	<div data-type_key="' . $marker_type . '" class="map-first-overlay-type map-first-overlay-type-' . $marker_type . ' waymark-accordion-group">' . "\n";				
+					$out .= '	<div data-type_key="' . $marker_type . '" class="ogis-theme-overlay-type ogis-theme-overlay-type-' . $marker_type . ' waymark-accordion-group">' . "\n";				
 					$out .= '		<legend>' . $marker_type . ' (' . sizeof($markers) . ')</legend>' . "\n";
 					$out .= '		<div class="waymark-accordion-group-content">' . "\n";
 					foreach($markers as $marker) {					
@@ -465,13 +465,13 @@ function map_first_sidebar($overlays, $display_kinds = ['markers', 'lines'], $di
 												
 				break;	
 			case 'lines' :
-				$out .= '<div class="map-first-lines">' . "\n";
+				$out .= '<div class="ogis-theme-lines">' . "\n";
 				foreach($overlay_group as $line_type => $lines) {
 					if(isset($display_types['lines']) && is_array($display_types['lines']) && ! in_array($line_type, $display_types['lines'])) {
 						continue;
 					}
 
-					$out .= '	<div data-type_key="' . $line_type . '" class="map-first-overlay-type map-first-overlay-type-' . $line_type . ' waymark-accordion-group">' . "\n";				
+					$out .= '	<div data-type_key="' . $line_type . '" class="ogis-theme-overlay-type ogis-theme-overlay-type-' . $line_type . ' waymark-accordion-group">' . "\n";				
 					$out .= '		<legend>' . $line_type . ' (' . sizeof($lines) . ')</legend>' . "\n";
 					$out .= '		<div class="waymark-accordion-group-content">' . "\n";
 					foreach($lines as $line) {
@@ -568,7 +568,7 @@ add_filter('do_shortcode_tag', function($output, $tag, $attr) {
 	
 	if($sidebar) {
 		$out = '<!-- START Map First Sidebar Wrapper -->' . "\n";
-		$out .= '<div class="map-first-sidebar-wrapper">' . "\n";
+		$out .= '<div class="ogis-theme-sidebar-wrapper">' . "\n";
 		$out .= $output;
 		$out .= $sidebar;	
 		$out .= '</div>' . "\n";

@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		less: {
 			wp_css: {
 				files: {
-					'assets/css/map-first.css': 'assets/less/map-first.less'
+					'assets/css/ogis-theme.css': 'assets/less/ogis-theme.less'
 				}
 			}			
 		},
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 		cssmin: {
 			wp_css: {
 				files: {
-					'assets/css/map-first.min.css': 'assets/css/map-first.css'
+					'assets/css/ogis-theme.min.css': 'assets/css/ogis-theme.css'
 				}
 			}			
 		},		
