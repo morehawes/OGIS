@@ -13,16 +13,17 @@ function ogis_setup_home() {
 	}	
 	
 // 	waymark_container.addClass('waymark-map-fullscreen');
-	
-	console.log(waymark_container);	
+
+	var header = jQuery('#header', body);
+	var header_height = header.height();
+	var map_height = body.height() - header_height;	
 	
 	waymark_container.css({
-		'position': 'absolute',
-		'top': '0',
-		'left': '0',				
-		'width': '100%',
-		'border': '1px solid red'
+		'top': header_height + 'px',
+		'height': map_height + 'px'
 	});
+	
+	Waymark_Instance.map.invalidateSize();
 }
 
 function ogis_setup_sidebar() {
@@ -497,8 +498,7 @@ jQuery('document').ready(function() {
 	setTimeout(function() {
 		ogis_setup_breadcrumbs();
 		ogis_setup_sidebar();
-		ogis_setup_home();
-
-		//waymark_setup_accordions();
 	}, 1000);	
+
+	ogis_setup_home();
 });

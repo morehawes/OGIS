@@ -116,8 +116,20 @@ hr.wp-block-separator {
  * ============== HOME ================
  * ====================================
  */
-body.home article > h1 {
-	display: none;
+html {
+	height: 100%;
+}
+body.home {
+	height: 100%;;
+	#waymark-map {
+		position: absolute;
+		left: 0;
+		width: 100%;
+	}
+
+	article > h1 {
+		display: none;
+	}
 }
 
 /**
