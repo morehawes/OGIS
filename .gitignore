@@ -20,3 +20,4 @@ wp-config.php
 cms/wp-admin/php_errors.log
 cms/wp-content/themes/ogis-theme/node_modules
 php_errors.log
+cms/wp-content/uploads/waymark_submission
