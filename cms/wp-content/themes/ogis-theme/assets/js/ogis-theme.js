@@ -1,4 +1,31 @@
-function map_first_setup_sidebar() {
+function ogis_setup_home() {
+	var body = jQuery('body.home').first();
+
+	if(! body.length) {
+		return;
+	}
+	
+	var waymark_container = jQuery('#waymark-map');
+	var Waymark_Instance = waymark_container.data('Waymark');
+
+	if(typeof Waymark_Instance !== 'object') {
+		return;
+	}	
+	
+// 	waymark_container.addClass('waymark-map-fullscreen');
+	
+	console.log(waymark_container);	
+	
+	waymark_container.css({
+		'position': 'absolute',
+		'top': '0',
+		'left': '0',				
+		'width': '100%',
+		'border': '1px solid red'
+	});
+}
+
+function ogis_setup_sidebar() {
 	var waymark_container = jQuery('.waymark-map').first();
 
 	if(typeof waymark_container !== 'object') {
@@ -434,7 +461,7 @@ function map_first_setup_sidebar() {
 	//container.append(sidebar);
 }
 
-function map_first_setup_breadcrumbs() {
+function ogis_setup_breadcrumbs() {
 	var nav = jQuery('select#breadcrumb-nav');
 	
 	if(! nav.length) {
@@ -468,8 +495,9 @@ function map_first_setup_breadcrumbs() {
 
 jQuery('document').ready(function() {
 	setTimeout(function() {
-		map_first_setup_breadcrumbs();
-		map_first_setup_sidebar();
+		ogis_setup_breadcrumbs();
+		ogis_setup_sidebar();
+		ogis_setup_home();
 
 		//waymark_setup_accordions();
 	}, 1000);	

@@ -9,6 +9,8 @@ if(have_posts()) {
 		get_template_part('template-parts/content/content');
 	}
 
+/*
+
 	echo '<hr />' . "\n";
 
 	//Home?
@@ -53,6 +55,7 @@ if(have_posts()) {
 
 	// Previous/next page navigation.
 	//twentynineteen_the_posts_navigation();
+*/	
 //No Content
 } else {
 	get_template_part('template-parts/content/content', 'none');

@@ -90,7 +90,7 @@
 				</div>
 			</div>
 		
-			<div class="navbar navbar-dark bg-dark shadow-sm mb-2">
+			<div class="navbar navbar-dark bg-dark shadow-sm">
 				<div class="container justify-content-between">
 					<div class="navbar-left">
 						<!-- Brand -->
