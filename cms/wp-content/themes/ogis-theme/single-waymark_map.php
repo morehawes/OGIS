@@ -7,10 +7,6 @@
 			
 				<?php the_content(); ?>
 				
-				<hr />
-			
-				<a href="<?php echo get_home_url(); ?>">&lt; Home</a>
-
-				<footer id="footer">v1.0</footer>				
+				<?php require_once('footer.php'); ?>				
 			</article>
 <?php require_once('bottom.php'); ?>		

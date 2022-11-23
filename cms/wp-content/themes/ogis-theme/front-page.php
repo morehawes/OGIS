@@ -8,6 +8,6 @@
 				<?php the_content(); ?>
 
 
-				<footer id="footer">v1.0</footer>
+				<?php require_once('footer.php'); ?>
 			</article>
 <?php require_once('bottom.php'); ?>		
