@@ -1,13 +1,29 @@
 <?php
 
-function map_first_enqueue_assets() {
+//Wp Head
+remove_action('wp_head', 'feed_links_extra', 3 );
+remove_action('wp_head', 'feed_links' );
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'index_rel_link');
+remove_action('wp_head', 'parent_post_rel_link');
+remove_action('wp_head', 'start_post_rel_link');
+remove_action('wp_head', 'adjacent_posts_rel_link');
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+
+add_action( 'the_title', function() {
+	return '';
+});
+
+//Enqueue
+add_action('wp_enqueue_scripts', function() {
 	//CSS
 	wp_enqueue_style('ogis-theme', get_template_directory_uri() . '/assets/css/ogis-theme.css');
 	
 	//JS
 	wp_enqueue_script('ogis-theme', get_template_directory_uri() . '/assets/js/ogis-theme.js', 'jquery', false, true);	
-}
-add_action('wp_enqueue_scripts', 'map_first_enqueue_assets');
+});
 
 
 // add_filter('do_shortcode_tag', function($output, $tag, $attr) {

@@ -3,3 +3,9 @@ html {
   height: 100%;
   margin: 0;
 }
+#waymark-submission #waymark-map-add #map_title-container {
+  display: none;
+}
+#waymark-submission #waymark-parameters-waymark_map {
+  padding: 0;
+}

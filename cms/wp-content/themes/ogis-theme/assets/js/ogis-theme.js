@@ -5,10 +5,10 @@ function ogis_setup_home() {
 		return;
 	}
 
-	body.css({
-		'height': '100%',
-		'background': 'red'
-	});
+// 	body.css({
+// 		'height': '100%',
+// 		'background': 'red'
+// 	});
 
 	var body_height = body.height();
 	console.log(body_height);
@@ -24,8 +24,9 @@ function ogis_setup_home() {
 
 	var map_height = body_height * (2/3);	
 	
+	//Unset
 	waymark_container.css({
-		'height': map_height + 'px'
+// 		'height': ''
 	});
 	
 	Waymark_Instance.map.invalidateSize();
