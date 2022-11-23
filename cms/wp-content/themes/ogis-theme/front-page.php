@@ -1,4 +1,4 @@
-<?php require_once('top.php'); ?>
+<?php require_once('inc/top.php'); ?>
 			<div id="waymark">
 				<?php echo do_shortcode('[Waymark content="submission" map_hash="ogis_demo_add"]'); ?>
 			</div>
@@ -8,6 +8,6 @@
 				<?php the_content(); ?>
 
 
-				<?php require_once('footer.php'); ?>
+				<?php require_once('inc/footer.php'); ?>
 			</article>
-<?php require_once('bottom.php'); ?>		
+<?php require_once('inc/bottom.php'); ?>		
