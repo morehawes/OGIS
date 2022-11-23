@@ -10,9 +10,3 @@
 	</head>
 	<body <?php body_class(); ?>>
 		<?php wp_body_open(); ?>
-		
-		<!-- START Header -->
-		<header id="header">
-
-		</header>
-		<!-- END Header -->		

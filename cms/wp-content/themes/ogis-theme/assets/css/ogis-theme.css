@@ -1,19 +1,18 @@
 body,
-html,
-main {
+html {
   height: 100%;
   width: 100%;
   margin: 0;
   font-family: 'Open Sans', Arial, sans-serif;
 }
-#main #waymark {
+#waymark {
   height: 66%;
 }
-#main #waymark #waymark-submission {
+#waymark #waymark-submission {
   position: relative;
   height: 100%;
 }
-#main #waymark #waymark-submission .waymark-message {
+#waymark #waymark-submission .waymark-message {
   position: absolute;
   top: 0;
   left: 0;
@@ -24,13 +23,13 @@ main {
   border: none;
   border-bottom: 2px solid #bbb;
 }
-#main #waymark #waymark-submission #waymark-map-add {
+#waymark #waymark-submission #waymark-map-add {
   padding: 10px;
 }
-#main #waymark #waymark-submission #waymark-map-add #map_title-container {
+#waymark #waymark-submission #waymark-map-add #map_title-container {
   display: none;
 }
-#main #waymark #waymark-submission #waymark-map-add input.button {
+#waymark #waymark-submission #waymark-map-add input.button {
   padding: 5px 10px;
   font-size: 18px;
   background: #fff;
@@ -38,21 +37,21 @@ main {
   border: 2px solid #bbb;
   border-radius: 3px;
 }
-#main #waymark #waymark-submission #waymark-parameters-waymark_map {
+#waymark #waymark-submission #waymark-parameters-waymark_map {
   padding: 0;
 }
-#main #waymark .waymark-shortcode {
+#waymark .waymark-shortcode {
   height: 100%;
 }
-#main #words {
+#words {
   height: 33%;
   padding: 10px;
 }
-#main #words p:first-child {
+#words p:first-child {
   font-size: 130%;
   color: red;
 }
-#main #words .waymark-meta-item {
+#words .waymark-meta-item {
   padding-left: 0;
   padding-right: 0;
 }
