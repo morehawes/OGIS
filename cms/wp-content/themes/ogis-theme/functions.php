@@ -29,95 +29,36 @@ add_action('wp_enqueue_scripts', function() {
 });
 
 
-// add_filter('do_shortcode_tag', function($output, $tag, $attr) {
-// 	global $post;
-// 	
-// 	if($tag != 'Waymark') {
-// 		return $output;
-// 	}
-// 
-// 	$sidebar = '';
-// 
-// 	$WP_Object = get_queried_object();
-// 
-// 	//Single Map
-// 	if(is_a($WP_Object, 'WP_Post') && is_single()) {
-// 		$map_meta = Waymark_Helper::get_meta($post->ID);
-// 		
-// 		if(isset($map_meta['waymark_map_data']) || isset($map_meta['waymark_query_data'])) {
-// 			$map_data = Waymark_GeoJSON::string_to_feature_collection($map_meta['waymark_map_data']);
-// 			$query_data = Waymark_GeoJSON::string_to_feature_collection($map_meta['waymark_query_data']);
-// 
-// 			//Map Data
-// 			$map_data_features = [];
-// 			if(isset($map_data['features']) && is_array($map_data['features'])) {
-// 				$map_data_features = $map_data['features'];
-// 			}
-// 	
-// 			//Query Data
-// 			$query_data_features = [];
-// 			if(isset($query_data['features']) && is_array($query_data['features'])) {
-// 				$query_data_features = $query_data['features'];
-// 			}	
-// 	
-// 			$overlay_features = array_merge($map_data_features, $query_data_features);
-// 			
-// 			$overlay_features = map_first_sort_overlay_features($overlay_features);
-// 
-// 			$sidebar = map_first_sidebar($overlay_features, ['markers', 'lines']);	
-// 		}		
-// 
-// 	//Collection
-// 	} elseif(is_a($WP_Object, 'WP_Term') && isset($attr['collection_id'])) {
-// 		$overlay_features = array();
-// 
-// 		//Create Collection object
-// 		$Collection = new Waymark_Collection($WP_Object->term_id);	
-// 		foreach($Collection->Maps as $Map) {
-// 			//Map Data
-// 			$map_data_features = [];	
-// 			if(isset($Map->data['map_data'])) {
-// 				$map_data = Waymark_GeoJSON::string_to_feature_collection($Map->data['map_data']);
-// 				
-// 				//Add Map ID to properties
-// 				$map_data = Waymark_GeoJSON::update_feature_property($map_data, 'post_id', $Map->post_id);
-// 				
-// 				if(isset($map_data['features']) && is_array($map_data['features'])) {
-// 					$map_data_features = $map_data['features'];
-// 				}				
-// 			}
-// 
-// 			//Query Data
-// 			$query_data_features = [];
-// 			if(isset($Map->data['query_data'])) {
-// 				$query_data = Waymark_GeoJSON::string_to_feature_collection($Map->data['query_data']);
-// 		
-// 				if(isset($query_data['features']) && is_array($query_data['features'])) {
-// 					$query_data_features = $query_data['features'];
-// 				}	
-// 			}			
-// 
-// 			$overlay_features = array_merge_recursive($overlay_features, map_first_sort_overlay_features(array_merge($map_data_features, $query_data_features)));
-// 		}
-// 
-// 		$sidebar = map_first_sidebar($overlay_features, ['lines', 'markers'], ['markers' => ['photo', 'peak']]);	
-// 	}
-// 	
-// 	if($sidebar) {
-// 		$out = '<!-- START Map First Sidebar Wrapper -->' . "\n";
-// 		$out .= '<div class="ogis-theme-sidebar-wrapper">' . "\n";
-// 		$out .= $output;
-// 		$out .= $sidebar;	
-// 		$out .= '</div>' . "\n";
-// 		$out .= '<!-- END Map First Sidebar Wrapper -->' . "\n";	
-// 		
-// 		return $out;
-// 	} else {
-// 		return $output;
-// 	}
-// 	
-// 	return $out;
-// }, 10, 3);
+add_filter('do_shortcode_tag', function($output, $tag, $attr) {
+	global $post;
+	
+	if($tag != 'Waymark') {
+		return $output;
+	}
+
+	$sidebar = '';
+
+	$WP_Object = get_queried_object();
+
+	//Only Add *very* specific Waymark Shortcodes...
+	//Waymark_Helper::debug($attr);
+
+	if(! array_key_exists('map_hash', $attr)) {
+		return '';
+	}
+
+/*
+	//Single Map
+	if(is_a($WP_Object, 'WP_Post') && is_single()) {
+
+	//Collection
+	} elseif(is_a($WP_Object, 'WP_Term') && isset($attr['collection_id'])) {
+
+	}
+*/
+	
+	return $output;
+}, 10, 3);
 
 /**
  * =====================================
