@@ -4,4 +4,4 @@ An *Open Geospatial Information System* that allows you to create and share info
 
 **[View the Demo](https://www.ogis.app)**
 
-Created by [Joe Hawes](https://www.morehawes.ca/), OGIS is Open Source (GPLv2) and is built with [Waymark](https://www.waymark.dev/) and [WordPress](https://wordpress.org/plugins/waymark/).
+Created by [Joe Hawes](https://www.morehawes.ca/), OGIS is Open Source (GPLv2) and is built with [Waymark](https://www.waymark.dev/) for [WordPress](https://wordpress.org/plugins/waymark/).
