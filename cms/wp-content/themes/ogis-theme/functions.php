@@ -5,7 +5,7 @@ function map_first_enqueue_assets() {
 	wp_enqueue_style('ogis-theme', get_template_directory_uri() . '/assets/css/ogis-theme.css');
 	
 	//JS
-	wp_enqueue_script('ogis-theme', get_template_directory_uri() . '/assets/js/ogis-theme.js');	
+	wp_enqueue_script('ogis-theme', get_template_directory_uri() . '/assets/js/ogis-theme.js', 'jquery', false, true);	
 }
 add_action('wp_enqueue_scripts', 'map_first_enqueue_assets');
 
