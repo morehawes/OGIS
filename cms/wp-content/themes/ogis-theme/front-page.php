@@ -1,13 +1,14 @@
 <?php require_once('top.php'); ?>
 		<!-- START Main -->
 		<main id="main">
-			<div class="">
+			<div id="waymark">
 				<?php echo do_shortcode('[Waymark content="submission"]'); ?>
 			</div>
-
-			<h1><?php the_title(); ?></h1>
+			<div id="words">
+				<h1><?php the_title(); ?></h1>
 			
-			<p><?php the_content(); ?></p>
+				<?php the_content(); ?>
+			</div>
 		</main>
 		<!-- END Main -->
 <?php require_once('bottom.php'); ?>		

@@ -12,8 +12,11 @@ remove_action('wp_head', 'adjacent_posts_rel_link');
 remove_action('wp_head', 'wp_generator');
 remove_action('wp_head', 'wp_oembed_add_discovery_links');
 
+//Strip from Front-End
 add_action( 'the_title', function() {
-	return '';
+	if(! is_admin()) {
+		return '';
+	}
 });
 
 //Enqueue

@@ -1,36 +1,26 @@
-function ogis_setup_home() {
-	var body = jQuery('body.home').first();
+function ogis_setup_submission() {
+	var submission_container = jQuery('#waymark-submission').first();
 
-	if(! body.length) {
+	if(! submission_container.length) {
 		return;
 	}
 
-// 	body.css({
-// 		'height': '100%',
-// 		'background': 'red'
-// 	});
-
-	var body_height = body.height();
-	console.log(body_height);
-	
-	var waymark_container = jQuery('#waymark-map');
+	var waymark_container = jQuery('#waymark-map', submission_container);
 	var Waymark_Instance = waymark_container.data('Waymark');
 
 	if(typeof Waymark_Instance !== 'object') {
 		return;
 	}	
 	
- 	waymark_container.addClass('ogis-home');
-
-	var map_height = body_height * (2/3);	
-	
-	//Unset
-	waymark_container.css({
-// 		'height': ''
-	});
-	
+	//Resize Map
+ 	var submit_form = jQuery('form.waymark-map-add', submission_container);
+	waymark_container.css('height', submission_container.height() - submit_form.height());
 	Waymark_Instance.map.invalidateSize();
+
+	//Modify Submit Button
+ 	var submit_button = jQuery('input.button', submit_form);
+ 	submit_button.val('Save Map');
 }
 jQuery('document').ready(function() {
-	ogis_setup_home();
+	ogis_setup_submission();
 });
