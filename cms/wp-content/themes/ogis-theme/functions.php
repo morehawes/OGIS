@@ -13,11 +13,11 @@ remove_action('wp_head', 'wp_generator');
 remove_action('wp_head', 'wp_oembed_add_discovery_links');
 
 //Strip from Front-End
-add_action( 'the_title', function() {
-	if(! is_admin()) {
-		return '';
-	}
-});
+// add_action( 'the_title', function() {
+// 	if(! is_admin()) {
+// 		return '';
+// 	}
+// });
 
 //Enqueue
 add_action('wp_enqueue_scripts', function() {
