@@ -1,6 +1,6 @@
 # OGIS
 
-An *Open Geospatial Information System* that allows you to create and share information about locations on Earth.
+An *Open Geographical Information System* that allows you to create and share information about locations on Earth.
 
 **[View the Demo](https://www.ogis.app)**
 
