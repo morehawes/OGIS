@@ -19,7 +19,18 @@ function ogis_setup_add() {
 
 	//Modify Submit Button
  	var submit_button = jQuery('input.button', submit_form);
- 	submit_button.val('Save Map');
+ 	submit_button
+ 		.val('Save Map')
+ 		.hide()
+ 	;
+ 	
+ 	//Show Submit Button only when something to Save
+	var map_data_textarea = jQuery('textarea#map_data', submit_form).first();	
+ 	setInterval(function() {
+		if(map_data_textarea.val() != '') {
+			submit_button.fadeIn();
+		}
+ 	}, 250);
 }
 
 function ogis_setup_view() {
