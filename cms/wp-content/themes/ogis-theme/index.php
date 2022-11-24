@@ -1,4 +1,8 @@
 <?php require_once('inc/top.php'); ?>
+			<div id="waymark">
+				<?php echo do_shortcode('[Waymark map_id="93" map_hash="ogis_404_view"]'); ?>
+			</div>
+
 			<article id="words">
 				<h1>404</h1>
 			
