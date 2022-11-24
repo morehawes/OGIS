@@ -7,6 +7,17 @@ body, html {
 
 // body.admin-bar {}
 
+.waymark-message {
+	&.waymark-success {
+		color: #fff !important;
+		background: green !important;
+	}
+	&.waymark-error {
+		color: #fff !important;
+		background: red !important;	
+	}
+}
+
 #waymark {
 	height: 66%;
 	
@@ -21,12 +32,6 @@ body, html {
 			left: 0;
 			width: 100%;
 			z-index: +10000;		
-
-			background: #fff;
-			color: #333;
-	
-			border: none;
-			border-bottom: 2px solid #bbb;
 		}
 	
 		#waymark-map-add {

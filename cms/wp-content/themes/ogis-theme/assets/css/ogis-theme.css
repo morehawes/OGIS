@@ -5,6 +5,14 @@ html {
   margin: 0;
   font-family: 'Open Sans', Arial, sans-serif;
 }
+.waymark-message.waymark-success {
+  color: #fff !important;
+  background: green !important;
+}
+.waymark-message.waymark-error {
+  color: #fff !important;
+  background: red !important;
+}
 #waymark {
   height: 66%;
 }
@@ -18,10 +26,6 @@ html {
   left: 0;
   width: 100%;
   z-index: 10000;
-  background: #fff;
-  color: #333;
-  border: none;
-  border-bottom: 2px solid #bbb;
 }
 #waymark #waymark-submission #waymark-map-add {
   padding: 10px;
