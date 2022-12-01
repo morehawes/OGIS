@@ -122,8 +122,34 @@ abstract class OSM_Import_Request {
 	 */
 	function perform_request($request) {
 
- 		OSM_Import_Helper::debug($request);
+//  		OSM_Import_Helper::debug($request, false);
 
-// 		return wp_remote_get($request);
+		//Setup call
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $request);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_ENCODING, '');
+		curl_exec($ch);
+
+		//cURL success?
+		if(! curl_errno($ch)) {
+			//Get the info
+			$info = curl_getinfo($ch);
+
+			$response_raw = curl_multi_getcontent($ch);
+
+
+			//Success!
+// 			if($info['http_code'] == '200') {		
+// 
+// 			}
+		}
+		
+		curl_close($ch);
+				
+//  		OSM_Import_Helper::debug($response);
+ 		
+ 		return $response_raw;
 	}
 }

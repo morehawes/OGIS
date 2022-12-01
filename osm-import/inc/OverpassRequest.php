@@ -7,7 +7,7 @@ class OSM_Import_OverpassRequest extends OSM_Import_Request {
 	public $overpass_query = null;
 	
 	function __construct($params_in = []) {
-//		$this->request_endpoint = 'http://overpass-api.de/api/interpreter';	
+// 		$this->request_endpoint = 'http://localhost/overpass-response.json';	
 		$this->request_endpoint = 'https://overpass.kumi.systems/api/interpreter';	
 
 		$this->set_config('output_type', 'json');
@@ -100,61 +100,43 @@ class OSM_Import_OverpassRequest extends OSM_Import_Request {
 		$response_out = [
 			'status' => 'init'
 		];
-		
-		//WP Error?
-		if(is_wp_error($response_raw)) {
-			$response_out['status'] = 'error';
-			$response_out['message'] = $response_raw->get_error_message();
-		//Success!!!
-		} elseif(isset($response_raw['response']['code'])) {
-			$raw_output = $response_raw['body'];
-			$raw_output = trim(preg_replace('/\s+/', ' ', $raw_output));
-			$response_out['raw'] = $raw_output;
 
-			switch($response_raw['response']['code']) {
-				case '200' :
-					$Query = $this->get_config('Query');			
-					$query_cast_overlay = $Query->get_parameter('query_cast_overlay');
+		$response_raw = trim(preg_replace('/\s+/', ' ', $response_raw));
+		$response_out['raw'] = $response_raw;
 
-					$response_out['status'] = 'success';
+		$Query = $this->get_config('Query');			
+		$query_cast_overlay = $Query->get_parameter('query_cast_overlay');
 
-					//Ensure is Array
-					$response_json = json_decode($response_raw['body'], null, 512, JSON_OBJECT_AS_ARRAY);
+		$response_out['status'] = 'success';
 
-					//Get Overlays GeoJSON		
-					$response_geojson = OSM_Import_Overpass::overpass_json_to_geojson($response_json, $query_cast_overlay);
+		//Ensure is Array
+		$response_json = json_decode($response_out['raw'], null, 512, JSON_OBJECT_AS_ARRAY);
 
-					//If we have overlays
-					$overlay_count = OSM_Import_GeoJSON::get_feature_count($response_geojson);					
-					if($overlay_count) {
-						//What kind of Overlay?
-						switch($query_cast_overlay) {
-							//Markers
-							case 'marker' :
-								$query_data = OSM_Import_GeoJSON::update_feature_property($response_geojson, 'type', $Query->get_parameter('query_cast_marker_type'));						
+		//Get Overlays GeoJSON		
+		$response_geojson = OSM_Import_Overpass::overpass_json_to_geojson($response_json, $query_cast_overlay);
 
-								break;
-
-							//Lines
-							case 'line' :
-								$query_data = OSM_Import_GeoJSON::update_feature_property($response_geojson, 'type', $Query->get_parameter('query_cast_line_type'));
-
-								break;
-						}		
-
-
-						$response_out['query_data'] = json_encode($query_data);
-					}
-					
-					break;
-				case '400' :
-					$response_out['status'] = 'error';
-					$response_out['message'] = OSM_Import_Overpass::get_overpass_response_error($response_raw['body']);
+		//If we have overlays
+		$overlay_count = OSM_Import_GeoJSON::get_feature_count($response_geojson);					
+		if($overlay_count) {
+			//What kind of Overlay?
+			switch($query_cast_overlay) {
+				//Markers
+				case 'marker' :
+					$query_data = OSM_Import_GeoJSON::update_feature_property($response_geojson, 'type', $Query->get_parameter('query_cast_marker_type'));						
 
 					break;
-			}
+
+				//Lines
+				case 'line' :
+					$query_data = OSM_Import_GeoJSON::update_feature_property($response_geojson, 'type', $Query->get_parameter('query_cast_line_type'));
+
+					break;
+			}		
+
+
+			$response_out['query_data'] = json_encode($query_data);
 		}
-		
+
 		return $response_out;
 	}	
 }
