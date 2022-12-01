@@ -86,7 +86,7 @@ class OSM_Import_Query extends OSM_Import_Class {
 			'type' => 'select',				
 			'tip' => 'Marker/Line/Shape',
 			'title' => 'Overlay Type',
-			'default' => 'marker',
+// 			'default' => 'marker',
 			'options' => [
 				'marker' => 'Marker',
 				'line' => 'Line',
@@ -100,7 +100,7 @@ class OSM_Import_Query extends OSM_Import_Class {
 			'type' => 'select',				
 			'tip' => 'Cast to Type',
 			'title' => 'Marker Type',
-			'default' => 'default_type',
+			'default' => 'information',
 			'options' => [
 				'one' => 'One',
 				'two' => 'Two',
@@ -114,7 +114,7 @@ class OSM_Import_Query extends OSM_Import_Class {
 			'type' => 'select',				
 			'tip' => 'Cast to Type',
 			'title' => 'Line Type',
-			'default' => 'default_type',
+// 			'default' => 'green',
 			'options' => [
 				'one' => 'One',
 				'two' => 'Two',

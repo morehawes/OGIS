@@ -11,7 +11,8 @@ $Query = new OSM_Import_Query([
 	'query_area_type' => 'bounds',
 	'query_area_bounds' => '-52.648029327392585,47.505026,-52.605972,47.53435623467226',
 	'query_overpass_request' => 'nwr["amenity"]',
-	'query_cast_overlay' => 'marker'	
+	'query_cast_overlay' => 'marker',
+	'query_cast_marker_type' => 'toilet'		
 ]);
 ?>
 <!DOCTYPE html>
@@ -20,31 +21,39 @@ $Query = new OSM_Import_Query([
 		<meta charset="UTF-8">
 		<title>OSM Import Test</title>
 
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-		<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>		
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+		
+		<!-- Waymark JS -->		
+		<link rel="stylesheet" href="assets/css/waymark-js.min.css" type="text/css" media="all" />
+		<script src="assets/js/waymark-js.min.js"></script>		
 	</head>
 
 	<body>
-		<div id="map" style="height:400px"></div>
+		<!-- Map -->
+		<div id="waymark-map"></div>
 
 		<script>
-			const query_data = <?php echo $Query->get_parameter('query_data'); ?>;
-			
-			const map = L.map('map').setView([47.525026,-52.638029327392585], 13);
-			const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				maxZoom: 19,
-				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-			}).addTo(map);
+		const waymark_user_config = {
+			"tile_layers":[{"layer_name":"Open Street Map","layer_url":"https:\/\/{s}.tile.openstreetmap.org\/{z}\/{x}\/{y}.png","layer_attribution":"\u00a9 <a href=\"https:\/\/www.openstreetmap.org\/copyright\">OpenStreetMap<\/a> contributors"}],
+			"marker_types":[{"marker_title":"Toilet","marker_shape":"rectangle","marker_size":"small","icon_type":"text","marker_icon":"WC","marker_colour":"#ffffff","icon_colour":"#000000","marker_display":"1","marker_submission":"1"}],
+			"line_types":[{}],
+			"shape_types":[{}]
+		};
 
-			const data_layer = L.geoJSON(query_data, {
-				pointToLayer(feature, latlng) {
-					return L.marker(latlng);
-				}
-			})
-			.bindPopup(function (layer) {
-		    return layer.feature.properties.description;
-		  })
-			.addTo(map);
+		jQuery(document).ready(function() {
+			const waymark_viewer = window.Waymark_Map_Factory.viewer();
+			waymark_viewer.fallback_latlng = [47.525026,-52.638029327392585];
+			waymark_viewer.fallback_zoom = 13;
+	
+			const waymark_config = jQuery.extend({}, waymark_user_config);
+			waymark_config.map_div_id = "waymark-map";
+			waymark_config.map_height = 450;
+			waymark_viewer.init(waymark_config);
+	
+			const query_data = <?php echo $Query->get_parameter('query_data'); ?>;
+			waymark_viewer.load_json(query_data);
+		});
 		</script>
 	</body>
 </html>
