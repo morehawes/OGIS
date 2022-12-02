@@ -7,13 +7,21 @@ spl_autoload_register(function($class_name) {
 	include 'inc/' . $file_name;	
 });
 
-$Query = new OSM_Import_Query([
-	'query_area_type' => 'bounds',
-	'query_area_bounds' => '-52.648029327392585,47.505026,-52.605972,47.53435623467226',
-	'query_overpass_request' => 'nwr["amenity"]',
-	'query_cast_overlay' => 'marker',
-	'query_cast_marker_type' => 'toilet'		
-]);
+//Form Output
+$Query = new OSM_Import_Query();
+$Queries = [];
+$map_queries = [];
+
+if(sizeof($_POST) && sizeof($_POST['map_queries'])) {
+	foreach($_POST['map_queries'] as $q) {
+		$Query = new OSM_Import_Query($q);	
+		
+		if($Query->can_execute()) {		
+			$Queries[] = $Query;
+			$map_queries[] = $q;
+		}
+	}
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,6 +33,7 @@ $Query = new OSM_Import_Query([
 		<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
 
 		<!-- OSM Import -->
+		<link rel="stylesheet" href="assets/css/osm-import.css" type="text/css" media="all" />
 		<script src="assets/js/osm-import.js"></script>
 		
 		<!-- Waymark JS -->		
@@ -33,17 +42,23 @@ $Query = new OSM_Import_Query([
 	</head>
 
 	<body>
-		<?php if(sizeof($_POST)) OSM_Import_Helper::debug($_POST); ?>
-		
 		<!-- Form -->
 		<form id="osm-import" method="post">
-			<?php echo $Query->create_map_form(); ?>
+			<?php 
+			//Valid Queries		
+			if(sizeof($map_queries)) {
+				$Query->create_map_form($map_queries);			
+			//Blank
+			} else {
+				$Query->create_map_form();		
+			}			
+			?>
 			
 			<input type="submit" />
 		</form>
-
+		
 		<!-- Map -->
-		<div id="waymark-map"></div>
+		<div id="waymark-map" class="waymark-instance"></div>
 
 		<script>
 		const waymark_user_config = {
@@ -63,8 +78,9 @@ $Query = new OSM_Import_Query([
 			waymark_config.map_height = 450;
 			waymark_viewer.init(waymark_config);
 	
-			const query_data = <?php echo $Query->get_parameter('query_data'); ?>;
-			waymark_viewer.load_json(query_data);
+			<?php if(sizeof($Queries)) : foreach($Queries as $Query) : ?>
+			waymark_viewer.load_json(<?php echo $Query->get_parameter('query_data'); ?>);
+			<?php endforeach; endif; ?>
 		});
 		</script>
 	</body>
