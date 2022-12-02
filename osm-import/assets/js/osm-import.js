@@ -2,7 +2,6 @@ function waymark_setup_map_query() {
 	var query_index = 1;	
 
 	jQuery('.waymark-query-form.waymark-map-query .waymark-parameters-container').each(function() {
-		jQuery(this).css('background', 'red');
 		jQuery(this).attr('data-index', query_index);
 		
 		//Update on change

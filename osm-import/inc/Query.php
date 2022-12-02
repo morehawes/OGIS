@@ -89,7 +89,7 @@ class OSM_Import_Query extends OSM_Import_Class {
 // 			'default' => 'marker',
 			'options' => [
 				'marker' => 'Marker',
-				'line' => 'Line',
+// 				'line' => 'Line',
 //					'shape' => 'Shape'										
 			]
 		);
@@ -100,11 +100,11 @@ class OSM_Import_Query extends OSM_Import_Class {
 			'type' => 'select',				
 			'tip' => 'Cast to Type',
 			'title' => 'Marker Type',
-			'default' => 'information',
+// 			'default' => 'information',
 			'options' => [
-				'one' => 'One',
-				'two' => 'Two',
-				'three' => 'Three'										
+				'toilet' => 'Toilet',
+				'parking' => 'Parking',
+				'lighthouse' => 'Lighthouse'										
 			]
 		);
 			
