@@ -49,7 +49,7 @@ class OSM_Import_Query extends OSM_Import_Class {
 			'options' => [
 				'polygon' => 'Polygon',				
 				'bounds' => 'Bounds',
-//				'around' => __('Around', 'waymark')
+//				'around' => 'Around'
 			],
 			'title' => 'Query Area Type',
 			'default' => 'bounds',
@@ -270,15 +270,15 @@ class OSM_Import_Query extends OSM_Import_Class {
 // 		echo $out;
 // 	}
 
-// 	function create_map_form(Array $data = [], $name = 'map_queries') {
-// 		$out = '<div class="waymark-form waymark-query-form waymark-map-query waymark-self-clear">' . "\n";
-// 		
-// 		$out .= OSM_Import_Input::create_repeatable_parameter_groups($name, $this->inputs, $this->input_groups, $data);				
-// 
-// 		$out .= '</div>' . "\n";
-// 
-// 		echo $out;
-// 	}
+	function create_map_form(Array $data = [], $name = 'map_queries') {
+		$out = '<div class="waymark-form waymark-query-form waymark-map-query waymark-self-clear">' . "\n";
+		
+		$out .= OSM_Import_Input::create_repeatable_parameter_groups($name, $this->inputs, $this->input_groups, $data);				
+
+		$out .= '</div>' . "\n";
+
+		echo $out;
+	}
 
 // 	function create_preview() {
 // 		//Waymark Instance

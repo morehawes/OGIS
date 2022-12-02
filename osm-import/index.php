@@ -23,6 +23,9 @@ $Query = new OSM_Import_Query([
 
 		<!-- jQuery -->
 		<script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+
+		<!-- OSM Import -->
+		<script src="assets/js/osm-import.js"></script>
 		
 		<!-- Waymark JS -->		
 		<link rel="stylesheet" href="assets/css/waymark-js.min.css" type="text/css" media="all" />
@@ -30,6 +33,15 @@ $Query = new OSM_Import_Query([
 	</head>
 
 	<body>
+		<?php if(sizeof($_POST)) OSM_Import_Helper::debug($_POST); ?>
+		
+		<!-- Form -->
+		<form id="osm-import" method="post">
+			<?php echo $Query->create_map_form(); ?>
+			
+			<input type="submit" />
+		</form>
+
 		<!-- Map -->
 		<div id="waymark-map"></div>
 
